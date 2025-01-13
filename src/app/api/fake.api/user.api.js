@@ -33,7 +33,7 @@ const users = [
         qualities: [qualities.buller, qualities.handsome, qualities.alcoholic],
         completedMeetings: 15,
         rate: 2.5,
-        bookmark: false
+        bookmark: true
     },
     {
         _id: "67rdca3eeb7f6fgeed471817",

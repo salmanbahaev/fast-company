@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import User from "./user";
 import api from "../api";
 
 const Users = () => {
@@ -34,35 +35,13 @@ const Users = () => {
               <th scope="col">Профессия</th>
               <th scope="col">Встретился, раз</th>
               <th scope="col">Оценка</th>
+              <th scope="col">Избранное</th>
               <th />
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
-              <tr key={user._id}>
-                <td>{user.name}</td>
-                <td>
-                  {user.qualities.map((item) => (
-                    <span
-                      className={"badge m-1 bg-" + item.color}
-                      key={item._id}
-                    >
-                      {item.name}
-                    </span>
-                  ))}
-                </td>
-                <td>{user.profession.name}</td>
-                <td>{user.completedMeetings}</td>
-                <td>{user.rate}</td>
-                <td>
-                  <button
-                    className={"btn btn-danger"}
-                    onClick={() => handleDelete(user._id)}
-                  >
-                    Удалить
-                  </button>
-                </td>
-              </tr>
+              <User key={user._id} onHandleDelete={handleDelete} {...user} />
             ))}
           </tbody>
         </table>

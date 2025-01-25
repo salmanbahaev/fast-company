@@ -15,11 +15,11 @@ const Users = () => {
 
     setUsers(newUsers);
   };
-  
+
   return (
     <>
       <h2>
-        <SearchStatus length={users.length}/>
+        <SearchStatus length={users.length} />
       </h2>
       {users.length > 0 && (
         <table className="table">

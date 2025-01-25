@@ -23,7 +23,12 @@ const User = ({ onHandleDelete, onHandleToggleBookMark, ...user }) => {
         <td>{user.profession.name}</td>
         <td>{user.completedMeetings}</td>
         <td>{user.rate}</td>
-        <td><BookMark status={user.bookmark} onToggle={() => onHandleToggleBookMark(user._id)} /></td>
+        <td>
+          <BookMark
+            status={user.bookmark}
+            onToggle={() => onHandleToggleBookMark(user._id)}
+          />
+        </td>
         <td>
           <button
             className={"btn btn-danger"}

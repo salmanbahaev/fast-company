@@ -2,7 +2,7 @@ import React from "react";
 import Qualitie from "./qualitie";
 import BookMark from "./bookmark";
 
-const User = (user) => {
+const User = ({ onHandleDelete, onHandleToggleBookMark, ...user }) => {
   if (!user) {
     return (
       <tr>
@@ -11,28 +11,23 @@ const User = (user) => {
     );
   }
 
-  const handleToggle = () => {
-    user.bookmark = !user.bookmark; // Переключаем значение bookmark
-    console.log(`Bookmark is now: ${user.bookmark}`); // Логируем новое состояние
-  };
-
   return (
     <>
       <tr key={user._id}>
         <td>{user.name}</td>
         <td>
           {user.qualities.map((item) => (
-            <Qualitie {...item} />
+            <Qualitie key={item._id} {...item} />
           ))}
         </td>
         <td>{user.profession.name}</td>
         <td>{user.completedMeetings}</td>
         <td>{user.rate}</td>
-        <td><BookMark key={user._id} bookmark={user.bookmark} onToggle={handleToggle} /></td>
+        <td><BookMark status={user.bookmark} onToggle={() => onHandleToggleBookMark(user._id)} /></td>
         <td>
           <button
             className={"btn btn-danger"}
-            onClick={() => user.onHandleDelete(user._id)}
+            onClick={() => onHandleDelete(user._id)}
           >
             Удалить
           </button>

@@ -1,30 +1,25 @@
 import React, { useState } from "react";
 import User from "./user";
 import api from "../api";
+import SearchStatus from "./searchStatus";
 
 const Users = () => {
   const [users, setUsers] = useState(api.users.fetchAll());
   const handleDelete = (userId) =>
     setUsers(users.filter((user) => user._id !== userId));
 
-  const renderPhrase = (number) => {
-    const lastOne = Number(number.toString().slice(-1));
+  const handleToggleBookMark = (id) => {
+    const newUsers = users.map((user) => {
+      return user._id === id ? { ...user, bookmark: !user.bookmark } : user;
+    });
 
-    if (number > 4 && number < 15) return "Человек тусанет";
-    if ([2, 3, 4].indexOf(lastOne) >= 0) return "Человека тусанут";
-    if (lastOne === 1) return "Человек тусанет";
-    return "человек тусанет";
+    setUsers(newUsers);
   };
+  
   return (
     <>
       <h2>
-        <span
-          className={"badge bg-" + (users.length > 0 ? "primary" : "danger")}
-        >
-          {users.length > 0
-            ? `${users.length} ${renderPhrase(users.length)} с тобой сегодня`
-            : "Никто с тобой не тусанет"}
-        </span>
+        <SearchStatus length={users.length}/>
       </h2>
       {users.length > 0 && (
         <table className="table">
@@ -41,7 +36,12 @@ const Users = () => {
           </thead>
           <tbody>
             {users.map((user) => (
-              <User key={user._id} onHandleDelete={handleDelete} {...user} />
+              <User
+                key={user._id}
+                onHandleDelete={handleDelete}
+                onHandleToggleBookMark={handleToggleBookMark}
+                {...user}
+              />
             ))}
           </tbody>
         </table>

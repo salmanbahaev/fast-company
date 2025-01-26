@@ -3,6 +3,7 @@ import User from "./user";
 import api from "../api";
 import SearchStatus from "./searchStatus";
 import Pagination from "./pagination";
+import { paginate } from "../utils/paginate";
 
 const Users = () => {
   const [users, setUsers] = useState(api.users.fetchAll());
@@ -24,13 +25,8 @@ const Users = () => {
     console.log("page: ", pageIndex);
     setCurrentPage(pageIndex)
   };
-
-  const paginate = (items, pageNumber, pageSize) => {
-    const startIndex = (pageNumber - 1) * pageSize
-    return [...items].splice(startIndex, pageSize)
-  }
-
-  const userCrop = paginate(users, currentPage, pageSize)  
+  
+  const userCrop = paginate(users, currentPage, pageSize)
 
   return (
     <>

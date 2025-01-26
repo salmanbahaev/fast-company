@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import User from "./user";
 import api from "../api";
 import SearchStatus from "./searchStatus";
+import Pagination from "./pagination";
 
 const Users = () => {
   const [users, setUsers] = useState(api.users.fetchAll());
@@ -16,12 +17,18 @@ const Users = () => {
     setUsers(newUsers);
   };
 
+  const count = users.length;
+  const pageSize = 4;
+  const handlePageChange = (pageIndex) => {
+    console.log("page: ", pageIndex);
+  };
+
   return (
     <>
       <h2>
-        <SearchStatus length={users.length} />
+        <SearchStatus length={count} />
       </h2>
-      {users.length > 0 && (
+      {count > 0 && (
         <table className="table">
           <thead>
             <tr>
@@ -46,6 +53,11 @@ const Users = () => {
           </tbody>
         </table>
       )}
+      <Pagination
+        itemsCount={count}
+        pageSize={pageSize}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 };
